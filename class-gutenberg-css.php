@@ -66,6 +66,8 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 				$version
 			);
 
+			wp_set_script_translations( 'themeisle-gutenberg-css', 'textdomain' );
+
 			wp_enqueue_style(
 				'themeisle-gutenberg-css',
 				plugin_dir_url( $this->get_dir() ) . $this->slug . '/build/build.css'
