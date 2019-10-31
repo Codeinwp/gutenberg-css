@@ -11,7 +11,7 @@ const { PanelBody } = wp.components;
 
 const { createHigherOrderComponent } = wp.compose;
 
-const { InspectorControls } = wp.editor;
+const { InspectorControls } = wp.blockEditor || wp.editor;
 
 const { Fragment } = wp.element;
 

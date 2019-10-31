@@ -4,12 +4,6 @@
 const { __ } = wp.i18n;
 
 const {
-	Button,
-	Dashicon,
-	KeyboardShortcuts
-} = wp.components;
-
-const {
 	Component,
 	Fragment
 } = wp.element;
@@ -18,16 +12,9 @@ class CSSEditor extends Component {
 	constructor() {
 		super( ...arguments );
 
-		this.enableFullScreen = this.enableFullScreen.bind( this );
-		this.disableFullScreen = this.disableFullScreen.bind( this );
-
 		this.editor;
 
 		this.customCSS = '';
-
-		this.state = {
-			isFullScreen: false
-		};
 	}
 
 	componentDidMount() {
@@ -76,12 +63,6 @@ class CSSEditor extends Component {
 			styleActiveSelected: true,
 			extraKeys: {
 				'Ctrl-Space': 'autocomplete',
-				'Ctrl-F': ( cm ) => {
-					cm.setOption( 'fullScreen', ! cm.getOption( 'fullScreen' ) );
-				},
-				'Esc': ( cm ) => {
-					cm.getOption( 'fullScreen' ) && cm.setOption( 'fullScreen', false );
-				},
 				'Alt-F': 'findPersistent',
 				'Cmd-F': 'findPersistent'
 			}
@@ -100,49 +81,12 @@ class CSSEditor extends Component {
 		});
 	}
 
-	enableFullScreen() {
-		this.editor.setOption( 'fullScreen', true );
-		this.setState({ isFullScreen: true });
-	}
-
-	disableFullScreen() {
-		this.editor.setOption( 'fullScreen', false );
-		this.setState({ isFullScreen: false });
-	}
-
 	render() {
 		return (
 			<Fragment>
 				<p>{ __( 'Add your custom CSS.' ) }</p>
 
 				<div id="themeisle-css-editor" className="themeisle-css-editor" />
-
-				<div className="themeisle-css-editor-actions">
-					<Button
-						isDefault
-						isLarge
-						onClick={ this.enableFullScreen }
-					>
-						{ __( 'Full Screen Mode' ) }
-					</Button>
-
-					<KeyboardShortcuts shortcuts={ {
-						'ctrl+f': this.enableFullScreen
-					} } />
-
-					<span className="themeisle-css-editor__info">{ __( '(Ctrl + F)' ) }</span>
-
-					{ this.state.isFullScreen && true === this.editor.getOption( 'fullScreen' ) && (
-						<Button
-							isDefault
-							onClick={ this.disableFullScreen }
-							className="themeisle-css-editor__close"
-						>
-							<Dashicon icon="no-alt" />
-							{ __( 'Close' ) }
-						</Button>
-					)}
-				</div>
 
 				<p>{ __( 'Use' ) } <code>selector</code> { __( 'to target block wrapper.' ) }</p>
 

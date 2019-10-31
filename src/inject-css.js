@@ -53,7 +53,8 @@ const cycleBlocks = ( blocks, reusableBlocks ) => {
 
 const subscribed = subscribe( () => {
 	style = '';
-	const blocks = select( 'core/editor' ).getBlocks();
+	const { getBlocks } = select( 'core/block-editor' ) || select( 'core/editor' );
+	const blocks = getBlocks();
 	const reusableBlocks = select( 'core' ).getEntityRecords( 'postType', 'wp_block' );
 	cycleBlocks( blocks, reusableBlocks );
 	addStyle( style );
