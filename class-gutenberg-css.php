@@ -135,11 +135,11 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 					$reusable_block = get_post( $block['attrs']['ref'] );
 
 					if ( ! $reusable_block || 'wp_block' !== $reusable_block->post_type ) {
-						return;
+						return $style;
 					}
 
 					if ( 'publish' !== $reusable_block->post_status || ! empty( $reusable_block->post_password ) ) {
-						return;
+						return $style;
 					}
 
 					$blocks = $this->parse_blocks( $reusable_block->post_content );
