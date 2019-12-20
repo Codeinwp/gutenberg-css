@@ -1,3 +1,7 @@
+### [Version 1.0.4](https://github.com/Codeinwp/gutenberg-css/compare/v1.0.3...v1.0.4) (2019-12-20)
+
+> Things are getting better every day. :rocket:
+
 ### [Version 1.0.3](https://github.com/Codeinwp/gutenberg-css/compare/v1.0.2...v1.0.3) (2019-12-20)
 
 > Things are getting better every day. :rocket:
