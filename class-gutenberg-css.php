@@ -1,11 +1,17 @@
 <?php
+/**
+ * Load CSS logic.
+ *
+ * @package gutenberg-css
+ */
 
 namespace ThemeIsle;
 
-/**
- * Class GutenbergCSS
- */
 if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
+
+	/**
+	 * Class GutenbergCSS.
+	 */
 	class GutenbergCSS {
 
 		/**
@@ -43,7 +49,7 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 			if ( THEMEISLE_GUTENBERG_CSS_DEV ) {
 				$version = time();
 			} else {
-				$version = THEMEISLE_GUTENBERG_CSS_DEV;
+				$version = THEMEISLE_GUTENBERG_CSS_VERSION;
 			}
 
 			wp_enqueue_code_editor( array( 'type' => 'text/css' ) );
@@ -52,31 +58,36 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 				'wp-codemirror', 
 				'window.CodeMirror = wp.CodeMirror;'
 			);
-
 			wp_enqueue_script(
 				'codemirror-fullscreen',
 				plugin_dir_url( $this->get_dir() ) . $this->slug . '/assets/fullscreen.js',
 				array( 'wp-codemirror' ),
-				$version
+				$version,
+				true
 			);
 
 			wp_enqueue_script(
 				'themeisle-gutenberg-css',
 				plugin_dir_url( $this->get_dir() ) . $this->slug . '/build/build.js',
 				array( 'wp-codemirror', 'wp-i18n', 'wp-blocks', 'wp-components', 'wp-compose', 'wp-data', 'wp-editor', 'wp-element', 'wp-hooks' ),
-				$version
+				$version,
+				true
 			);
 
 			wp_set_script_translations( 'themeisle-gutenberg-css', 'textdomain' );
 
 			wp_enqueue_style(
 				'themeisle-gutenberg-css',
-				plugin_dir_url( $this->get_dir() ) . $this->slug . '/build/build.css'
+				plugin_dir_url( $this->get_dir() ) . $this->slug . '/build/build.css',
+				array(),
+				$version
 			);
 		}
 
 		/**
 		 * Parse Blocks for Gutenberg and WordPress 5.0
+		 *
+		 * @param string $content Content to parse.
 		 * 
 		 * @since   1.0.0
 		 * @access  public
@@ -109,30 +120,31 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 					return;
 				}
 
-				$style = "\n" . '<style type="text/css" media="all">' . "\n";
+				$style  = "\n" . '<style type="text/css" media="all">' . "\n";
 				$style .= $this->cycle_through_blocks( $blocks );
 				$style .= "\n" . '</style>' . "\n";
 
-				echo $style;
+				echo $style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 		}
 
 		/**
 		 * Cycle thorugh Blocks
-		 * 
+		 *
+		 * @param array $inner_blocks Array of blocks.
 		 * @since   1.0.0
 		 * @access  public
 		 */
-		public function cycle_through_blocks( $innerBlocks ) {
+		public function cycle_through_blocks( $inner_blocks ) {
 			$style = '';
-			foreach ( $innerBlocks as $block ) {
+			foreach ( $inner_blocks as $block ) {
 				if ( isset( $block['attrs'] ) ) {
 					if ( isset( $block['attrs']['hasCustomCSS'] ) && isset( $block['attrs']['customCSS'] ) ) {
 						$style .= $block['attrs']['customCSS'];
 					}
 				}
 
-				if ( $block['blockName'] === 'core/block' && ! empty( $block['attrs']['ref'] ) ) {
+				if ( 'core/block' === $block['blockName'] && ! empty( $block['attrs']['ref'] ) ) {
 					$reusable_block = get_post( $block['attrs']['ref'] );
 
 					if ( ! $reusable_block || 'wp_block' !== $reusable_block->post_type ) {
@@ -166,15 +178,15 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 
 			$registered_blocks = \WP_Block_Type_Registry::get_instance()->get_all_registered();
 
-			foreach( $registered_blocks as $name => $block ) {
+			foreach ( $registered_blocks as $name => $block ) {
 				$block->attributes['hasCustomCSS'] = array(
 					'type'    => 'boolean',
-					'default' => false
+					'default' => false,
 				);
 
 				$block->attributes['customCSS'] = array(
 					'type'    => 'string',
-					'default' => ''
+					'default' => '',
 				);
 			}
 		}
