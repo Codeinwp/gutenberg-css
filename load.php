@@ -10,13 +10,14 @@
 
 define( 'THEMEISLE_GUTENBERG_CSS_VERSION', '1.0.3' );
 define( 'THEMEISLE_GUTENBERG_CSS_DEV', false );
-
-add_action(
-	'plugins_loaded',
-	function () {
-		// call this only if Gutenberg is active
-		if ( function_exists( 'register_block_type' ) ) {
-			require_once( dirname( __FILE__ ) . '/class-gutenberg-css.php' );
+if ( function_exists( 'add_action' ) ) {
+	add_action(
+		'plugins_loaded',
+		function () {
+			// call this only if Gutenberg is active.
+			if ( function_exists( 'register_block_type' ) ) {
+				require_once dirname( __FILE__ ) . '/class-gutenberg-css.php';
+			}
 		}
-	}
-);
+	);
+}
