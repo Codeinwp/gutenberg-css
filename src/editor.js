@@ -11,37 +11,16 @@ const {
 class CSSEditor extends Component {
 	constructor() {
 		super( ...arguments );
+		this.getClassName = this.getClassName.bind( this );
 
 		this.editor;
 
 		this.customCSS = '';
+		this.classAr = '';
 	}
 
 	componentDidMount() {
-		let classes, classAr;
-
-		const uniqueId = this.props.clientId.substr( 0, 8 );
-
-		if ( this.props.attributes.className ) {
-			classes = this.props.attributes.className;
-
-			if ( ! classes.includes( 'ticss-' ) ) {
-				classes = classes.split( ' ' );
-				classes.push( `ticss-${ uniqueId }` );
-				classes = classes.join( ' ' );
-			}
-
-			classAr = classes.split( ' ' );
-			classAr = classAr.find( i => i.includes( 'ticss' ) );
-		} else {
-			classes = `ticss-${ uniqueId }`;
-			classAr = classes;
-		}
-
-		this.props.setAttributes({
-			hasCustomCSS: true,
-			className: classes
-		});
+		let classes = this.getClassName();
 
 		if ( this.props.attributes.customCSS ) {
 			const generatedCSS = ( this.props.attributes.customCSS ).replace( /.ticss-[^#\s]*/g, 'selector' );
@@ -70,7 +49,7 @@ class CSSEditor extends Component {
 
 		this.editor.on( 'change', () => {
 			const regex = new RegExp( 'selector', 'g' );
-			const generatedCSS = this.editor.getValue().replace( regex, `.${ classAr }` );
+			const generatedCSS = this.editor.getValue().replace( regex, `.${ this.classAr }` );
 			this.customCSS = generatedCSS;
 
 			if ( ( 'selector {\n}\n' ).replace( /\s+/g, '' ) === this.customCSS.replace( /\s+/g, '' ) ) {
@@ -79,6 +58,39 @@ class CSSEditor extends Component {
 
 			this.props.setAttributes({ customCSS: this.customCSS });
 		});
+	}
+
+	componentDidUpdate() {
+		let classes = this.getClassName();
+
+		this.props.setAttributes({
+			hasCustomCSS: true,
+			className: classes
+		});
+	}
+
+	getClassName() {
+		let classes;
+
+		const uniqueId = this.props.clientId.substr( 0, 8 );
+
+		if ( this.props.attributes.className ) {
+			classes = this.props.attributes.className;
+
+			if ( ! classes.includes( 'ticss-' ) ) {
+				classes = classes.split( ' ' );
+				classes.push( `ticss-${ uniqueId }` );
+				classes = classes.join( ' ' );
+			}
+
+			this.classAr = classes.split( ' ' );
+			this.classAr = this.classAr.find( i => i.includes( 'ticss' ) );
+		} else {
+			classes = `ticss-${ uniqueId }`;
+			this.classAr = classes;
+		}
+
+		return classes;
 	}
 
 	render() {
