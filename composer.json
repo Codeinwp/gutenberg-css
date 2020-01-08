@@ -19,6 +19,14 @@
 		"dealerdirect/phpcodesniffer-composer-installer": "0.4.4",
 		"automattic/vipwpcs": "^0.3.0"
 	},
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"config": {
+		"optimize-autoloader": true
+	},
+	"extra": {
+		"installer-disable": "true"
+	},
 	"scripts": {
 		"lint": "phpcs",
 		"format": "phpcbf"
