@@ -17,5 +17,6 @@ plugins:
         - composer.lock
         - package-lock.json
         - package.json
+        - load.php
   - - "@semantic-release/github"
 
