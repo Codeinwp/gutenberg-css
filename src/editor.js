@@ -4,33 +4,28 @@
 const { __ } = wp.i18n;
 
 const {
-	Component,
-	Fragment
+	Fragment,
+	useEffect,
+	useRef
 } = wp.element;
 
-class CSSEditor extends Component {
-	constructor() {
-		super( ...arguments );
-		this.getClassName = this.getClassName.bind( this );
+const CSSEditor = ({
+	attributes,
+	setAttributes,
+	clientId
+}) => {
+	useEffect( () => {
+		let classes = getClassName();
 
-		this.editor;
-
-		this.customCSS = '';
-		this.classAr = '';
-	}
-
-	componentDidMount() {
-		let classes = this.getClassName();
-
-		if ( this.props.attributes.customCSS ) {
-			const generatedCSS = ( this.props.attributes.customCSS ).replace( /.ticss-[^#\s]*/g, 'selector' );
-			this.customCSS = generatedCSS;
+		if ( attributes.customCSS ) {
+			const generatedCSS = ( attributes.customCSS ).replace( /.ticss-[^#\s]*/g, 'selector' );
+			customCSSRef.current = generatedCSS;
 		} else {
-			this.customCSS = 'selector {\n}\n';
+			customCSSRef.current = 'selector {\n}\n';
 		}
 
-		this.editor = wp.CodeMirror( document.getElementById( 'themeisle-css-editor' ), {
-			value: this.customCSS,
+		editorRef.current = wp.CodeMirror( document.getElementById( 'themeisle-css-editor' ), {
+			value: customCSSRef.current,
 			autoCloseBrackets: true,
 			continueComments: true,
 			lineNumbers: true,
@@ -47,35 +42,39 @@ class CSSEditor extends Component {
 			}
 		});
 
-		this.editor.on( 'change', () => {
+		editorRef.current.on( 'change', () => {
 			const regex = new RegExp( 'selector', 'g' );
-			const generatedCSS = this.editor.getValue().replace( regex, `.${ this.classAr }` );
-			this.customCSS = generatedCSS;
+			const generatedCSS = editorRef.current.getValue().replace( regex, `.${ classArRef.current }` );
+			customCSSRef.current = generatedCSS;
 
-			if ( ( 'selector {\n}\n' ).replace( /\s+/g, '' ) === this.customCSS.replace( /\s+/g, '' ) ) {
-				return this.props.setAttributes({ customCSS: null });
+			if ( ( 'selector {\n}\n' ).replace( /\s+/g, '' ) === customCSSRef.current.replace( /\s+/g, '' ) ) {
+				return setAttributes({ customCSS: null });
 			}
 
-			this.props.setAttributes({ customCSS: this.customCSS });
+			setAttributes({ customCSS: customCSSRef.current });
 		});
-	}
+	}, []);
 
-	componentDidUpdate() {
-		let classes = this.getClassName();
+	useEffect( () => {
+		let classes = getClassName();
 
-		this.props.setAttributes({
+		setAttributes({
 			hasCustomCSS: true,
 			className: classes
 		});
-	}
+	}, [ attributes ]);
 
-	getClassName() {
+	const getClassName = () => {
 		let classes;
 
-		const uniqueId = this.props.clientId.substr( 0, 8 );
+		const uniqueId = clientId.substr( 0, 8 );
 
-		if ( this.props.attributes.className ) {
-			classes = this.props.attributes.className;
+		if ( null !== customCSSRef.current && ( 'selector {\n}\n' ).replace( /\s+/g, '' ) === customCSSRef.current.replace( /\s+/g, '' ) ) {
+			return attributes.className;
+		}
+
+		if ( attributes.className ) {
+			classes = attributes.className;
 
 			if ( ! classes.includes( 'ticss-' ) ) {
 				classes = classes.split( ' ' );
@@ -83,35 +82,37 @@ class CSSEditor extends Component {
 				classes = classes.join( ' ' );
 			}
 
-			this.classAr = classes.split( ' ' );
-			this.classAr = this.classAr.find( i => i.includes( 'ticss' ) );
+			classArRef.current = classes.split( ' ' );
+			classArRef.current = classArRef.current.find( i => i.includes( 'ticss' ) );
 		} else {
 			classes = `ticss-${ uniqueId }`;
-			this.classAr = classes;
+			classArRef.current = classes;
 		}
 
 		return classes;
-	}
+	};
 
-	render() {
-		return (
-			<Fragment>
-				<p>{ __( 'Add your custom CSS.' ) }</p>
+	const editorRef = useRef( null );
+	const customCSSRef = useRef( null );
+	const classArRef = useRef( null );
 
-				<div id="themeisle-css-editor" className="themeisle-css-editor" />
+	return (
+		<Fragment>
+			<p>{ __( 'Add your custom CSS.' ) }</p>
 
-				<p>{ __( 'Use' ) } <code>selector</code> { __( 'to target block wrapper.' ) }</p>
+			<div id="themeisle-css-editor" className="themeisle-css-editor"/>
 
-				<p>{ __( '' ) }</p>
-				<p>{ __( 'Example:' ) }</p>
-				<pre className="themeisle-css-editor-help">
-					{ 'selector {\n    background: #000;\n}\n\nselector img {\n    border-radius: 100%;\n}'}
-				</pre>
+			<p>{ __( 'Use' ) } <code>selector</code> { __( 'to target block wrapper.' ) }</p>
+			<p>{ __( '' ) }</p>
+			<p>{ __( 'Example:' ) }</p>
 
-				<p>{ __( 'You can also use other CSS syntax here, such as media queries.' ) }</p>
-			</Fragment>
-		);
-	}
-}
+			<pre className="themeisle-css-editor-help">
+				{ 'selector {\n    background: #000;\n}\n\nselector img {\n    border-radius: 100%;\n}'}
+			</pre>
+
+			<p>{ __( 'You can also use other CSS syntax here, such as media queries.' ) }</p>
+		</Fragment>
+	);
+};
 
 export default CSSEditor;
