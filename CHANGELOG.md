@@ -1,3 +1,7 @@
+##### [Version 1.0.8](https://github.com/Codeinwp/gutenberg-css/compare/v1.0.7...v1.0.8) (2020-01-15)
+
+Fix issue with saving CSS
+
 ### [Version 1.0.7](https://github.com/Codeinwp/gutenberg-css/compare/v1.0.6...v1.0.7) (2020-01-07)
 
 > Things are getting better every day. :rocket:
