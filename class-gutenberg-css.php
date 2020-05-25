@@ -58,18 +58,11 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 				'wp-codemirror', 
 				'window.CodeMirror = wp.CodeMirror;'
 			);
-			wp_enqueue_script(
-				'codemirror-fullscreen',
-				plugin_dir_url( $this->get_dir() ) . $this->slug . '/assets/fullscreen.js',
-				array( 'wp-codemirror' ),
-				$version,
-				true
-			);
 
 			wp_enqueue_script(
 				'themeisle-gutenberg-css',
 				plugin_dir_url( $this->get_dir() ) . $this->slug . '/build/build.js',
-				array( 'wp-codemirror', 'wp-i18n', 'wp-blocks', 'wp-components', 'wp-compose', 'wp-data', 'wp-editor', 'wp-element', 'wp-hooks' ),
+				array( 'code-editor', 'csslint', 'wp-i18n', 'wp-blocks', 'wp-components', 'wp-compose', 'wp-data', 'wp-editor', 'wp-element', 'wp-hooks' ),
 				$version,
 				true
 			);
@@ -79,7 +72,7 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 			wp_enqueue_style(
 				'themeisle-gutenberg-css',
 				plugin_dir_url( $this->get_dir() ) . $this->slug . '/build/build.css',
-				array(),
+				array( 'code-editor' ),
 				$version
 			);
 		}
@@ -175,7 +168,6 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 		 * @access  public
 		 */
 		public function add_attributes_to_blocks() {
-
 			$registered_blocks = \WP_Block_Type_Registry::get_instance()->get_all_registered();
 
 			foreach ( $registered_blocks as $name => $block ) {
