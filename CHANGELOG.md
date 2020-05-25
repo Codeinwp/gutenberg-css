@@ -1,3 +1,7 @@
+##### [Version 1.0.9](https://github.com/Codeinwp/gutenberg-css/compare/v1.0.8...v1.0.9) (2020-05-25)
+
+- Fix CSS Editor for users with disable SyntaxHighlighter
+
 ##### [Version 1.0.8](https://github.com/Codeinwp/gutenberg-css/compare/v1.0.7...v1.0.8) (2020-01-15)
 
 Fix issue with saving CSS
