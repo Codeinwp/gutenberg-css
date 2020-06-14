@@ -36,7 +36,7 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 		public function init() {
 			add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_editor_assets' ) );
 			add_action( 'wp_head', array( $this, 'render_server_side_css' ) );
-			add_action( 'init', array( $this, 'add_attributes_to_blocks' ), 11 );
+			add_action( 'wp_loaded', array( $this, 'add_attributes_to_blocks' ) );
 		}
 
 		/**
