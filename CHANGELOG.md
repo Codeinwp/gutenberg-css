@@ -1,3 +1,7 @@
+##### [Version 1.0.10](https://github.com/Codeinwp/gutenberg-css/compare/v1.0.9...v1.0.10) (2020-06-14)
+
+- Load attributes on `wp_loaded`
+
 ##### [Version 1.0.9](https://github.com/Codeinwp/gutenberg-css/compare/v1.0.8...v1.0.9) (2020-05-25)
 
 - Fix CSS Editor for users with disable SyntaxHighlighter
