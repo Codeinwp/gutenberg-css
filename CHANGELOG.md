@@ -1,3 +1,7 @@
+##### [Version 1.0.11](https://github.com/Codeinwp/gutenberg-css/compare/v1.0.10...v1.0.11) (2020-06-17)
+
+- Fix pseudo-class selector being removed.
+
 ##### [Version 1.0.10](https://github.com/Codeinwp/gutenberg-css/compare/v1.0.9...v1.0.10) (2020-06-14)
 
 - Load attributes on `wp_loaded`
