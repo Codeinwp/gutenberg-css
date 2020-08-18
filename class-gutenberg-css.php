@@ -120,7 +120,7 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 						$begin = strpos($block['attrs']['customCSS'], '{' );
 						$end = strpos($block['attrs']['customCSS'], '}' );
 						$cssStyle = substr($block['attrs']['customCSS'], $begin+1, $end-$begin-1 );
-						if (!strlen($cssStyle) > 0 || !strlen(trim($cssStyle)) == 0)
+						if (strlen($cssStyle) > 0 && !strlen(trim($cssStyle)) == 0)
 						$hasCustom = true;
 					}
 				}
