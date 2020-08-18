@@ -117,15 +117,20 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 
 				foreach ( $blocks as $block ) {
 					if ( isset( $block['attrs']['hasCustomCSS'] ) && isset( $block['attrs']['customCSS'] ) ) {
-						$begin = strpos($block['attrs']['customCSS'], '{' );
-						$end = strpos($block['attrs']['customCSS'], '}' );
-						$cssStyle = substr($block['attrs']['customCSS'], $begin+1, $end-$begin-1 );
-						if (strlen($cssStyle) > 0 && !strlen(trim($cssStyle)) == 0)
-						$hasCustom = true;
+						$begin = strpos( $block['attrs']['customCSS'], '{' );
+						$end = strpos( $block['attrs']['customCSS'], '}' );
+						while( $begin && $end )
+						{
+							$cssStyle = substr( $block['attrs']['customCSS'], $begin+1, $end-$begin-1 );
+							if (strlen( $cssStyle ) > 0 && ! strlen( trim($cssStyle ) ) == 0)
+								$hasCustom = true;
+							$begin = strpos( $block['attrs']['customCSS'], '{', $begin+1 );
+							$end = strpos( $block['attrs']['customCSS'], '}', $end+1 );
+						}
 					}
 				}
 
-				if($hasCustom === false)
+				if( $hasCustom === false )
 					return;
 				$style  = "\n" . '<style type="text/css" media="all">' . "\n";
 				$style .= $this->cycle_through_blocks( $blocks );
