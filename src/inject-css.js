@@ -40,7 +40,7 @@ const getCustomCssFromBlocks = ( blocks, reusableBlocks ) => {
 		return '';
 	}
 
-	// Return the block and its children. The result is an array deeply nested that match the structure of the block in the editor.
+	// Return the children of the block. The result is an array deeply nested that match the structure of the block in the editor.
 	const getChildrensFromBlock = ( block ) => {
 		const childrends = [];
 		if ( 'core/block' === block.name && null !== reusableBlocks ) {
