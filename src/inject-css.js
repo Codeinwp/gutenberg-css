@@ -62,7 +62,7 @@ const getCustomCssFromBlocks = ( blocks, reusableBlocks ) => {
 		return [ block, getChildrensFromBlock( block ) ];
 	});
 
-	// Transform the deply nested array in a simple one and then get the `customCss` value where is the case
+	// Transform the deply nested array in a simple one and then get the `customCss` value where it is the case
 	const extractCustomCss = flattenDeep( allBlocks ).map( ( block ) => {
 		if ( block.attributes && block.attributes.hasCustomCSS ) {
 			if ( block.attributes.customCSS && ( null !== block.attributes.customCSS ) ) {
