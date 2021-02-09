@@ -18,7 +18,8 @@ const CSSEditor = ({
 		let classes = getClassName();
 
 		if ( attributes.customCSS ) {
-			const generatedCSS = ( attributes.customCSS ).replace( /.ticss-[a-zA-Z0-9_-]*/g, 'selector' );
+			const regex = new RegExp( '.' + classArRef.current, 'g' );
+			const generatedCSS = ( attributes.customCSS ).replace( regex, 'selector' );
 			customCSSRef.current = generatedCSS;
 		} else {
 			customCSSRef.current = 'selector {\n}\n';
