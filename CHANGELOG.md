@@ -1,3 +1,7 @@
+##### [Version 1.1.1](https://github.com/Codeinwp/gutenberg-css/compare/v1.1.0...v1.1.1) (2021-02-09)
+
+- Fix extra class being removed
+
 #### [Version 1.1.0](https://github.com/Codeinwp/gutenberg-css/compare/v1.0.11...v1.1.0) (2021-02-09)
 
 - Refactor inject-css.js file.
