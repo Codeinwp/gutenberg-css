@@ -113,8 +113,14 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 					return;
 				}
 
+				$css = $this->cycle_through_blocks( $blocks );
+
+				if ( empty( $css ) ) {
+					return;
+				}
+
 				$style  = "\n" . '<style type="text/css" media="all">' . "\n";
-				$style .= $this->cycle_through_blocks( $blocks );
+				$style .= $css;
 				$style .= "\n" . '</style>' . "\n";
 
 				echo $style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
