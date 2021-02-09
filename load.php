@@ -10,6 +10,7 @@
 
 define( 'THEMEISLE_GUTENBERG_CSS_VERSION', '1.0.11' );
 define( 'THEMEISLE_GUTENBERG_CSS_DEV', false );
+
 if ( function_exists( 'add_action' ) ) {
 	add_action(
 		'plugins_loaded',

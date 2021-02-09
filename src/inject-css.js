@@ -41,17 +41,17 @@ const getCustomCssFromBlocks = ( blocks, reusableBlocks ) => {
 	}
 
 	// Return the children of the block. The result is an array deeply nested that match the structure of the block in the editor.
-	const getChildrensFromBlock = ( block ) => {
+	const getChildrenFromBlock = ( block ) => {
 		const childrends = [];
 		if ( 'core/block' === block.name && null !== reusableBlocks ) {
 			const reBlocks = reusableBlocks.find( i => block.attributes.ref === i.id );
 			if ( reBlocks && reBlocks.content ) {
-				childrends.push(  parse(  reBlocks.content.raw || reBlocks.content ).map( ( children ) => [ children, getChildrensFromBlock( children ) ])  );
+				childrends.push(  parse(  reBlocks.content.raw || reBlocks.content ).map( ( child ) => [ child, getChildrenFromBlock( child ) ])  );
 			};
 		}
 
 		if ( undefined !== block.innerBlocks && 0 < ( block.innerBlocks ).length ) {
-			childrends.push( block.innerBlocks.map( ( children ) => [ children, getChildrensFromBlock( children ) ]) );
+			childrends.push( block.innerBlocks.map( ( child ) => [ child, getChildrenFromBlock( child ) ]) );
 		}
 
 		return childrends;
@@ -59,7 +59,7 @@ const getCustomCssFromBlocks = ( blocks, reusableBlocks ) => {
 
 	// Get all the blocks and their children
 	const allBlocks = blocks.map( ( block ) => {
-		return [ block, getChildrensFromBlock( block ) ];
+		return [ block, getChildrenFromBlock( block ) ];
 	});
 
 	// Transform the deply nested array in a simple one and then get the `customCss` value where it is the case
@@ -79,7 +79,6 @@ const getCustomCssFromBlocks = ( blocks, reusableBlocks ) => {
 	// console.log( 'Get all the block', allBlocks );
 	// console.log( 'Extract customCss', extractCustomCss );
 	// console.log( 'Final Result\n', style );
-
 
 	return style;
 };
