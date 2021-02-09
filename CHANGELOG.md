@@ -1,3 +1,8 @@
+#### [Version 1.1.0](https://github.com/Codeinwp/gutenberg-css/compare/v1.0.11...v1.1.0) (2021-02-09)
+
+- Refactor inject-css.js file.
+- Don't render CSS if empty.
+
 ##### [Version 1.0.11](https://github.com/Codeinwp/gutenberg-css/compare/v1.0.10...v1.0.11) (2020-06-17)
 
 - Fix pseudo-class selector being removed.
