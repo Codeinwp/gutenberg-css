@@ -2,7 +2,7 @@
 	"name": "codeinwp/gutenberg-css",
 	"description": "CSS Editor for Gutenberg Blocks",
 	"type": "library",
-	"version": "1.0.8",
+	"version": "1.0.11",
 	"license": "GPL-3.0-or-later",
 	"homepage": "https://github.com/Codeinwp/gutenberg-css",
 	"authors": [
