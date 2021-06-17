@@ -1,21 +1,21 @@
 /**
  * WordPress dependencies.
  */
-const { assign } = lodash;
+import { assign } from 'lodash';
 
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const { hasBlockSupport } = wp.blocks;
+import { hasBlockSupport } from '@wordpress/blocks';
 
-const { PanelBody } = wp.components;
+import { PanelBody } from '@wordpress/components';
 
-const { createHigherOrderComponent } = wp.compose;
+import { createHigherOrderComponent } from '@wordpress/compose';
 
-const { InspectorControls } = wp.blockEditor || wp.editor;
+import { InspectorControls } from '@wordpress/block-editor';
 
-const { Fragment } = wp.element;
+import { Fragment } from '@wordpress/element';
 
-const { addFilter } = wp.hooks;
+import { addFilter } from '@wordpress/hooks';
 
 /**
  * Internal dependencies.
@@ -52,7 +52,7 @@ const withInspectorControls = createHigherOrderComponent( ( BlockEdit ) => {
 					<BlockEdit { ...props } />
 					<InspectorControls>
 						<PanelBody
-							title={ __( 'Custom CSS' ) }
+							title={ __( 'Custom CSS', 'textdomain' ) }
 							initialOpen={ false }
 						>
 							<CSSEditor

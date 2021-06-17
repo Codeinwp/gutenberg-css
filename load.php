@@ -9,7 +9,6 @@
  */
 
 define( 'THEMEISLE_GUTENBERG_CSS_VERSION', '1.1.1' );
-define( 'THEMEISLE_GUTENBERG_CSS_DEV', false );
 
 if ( function_exists( 'add_action' ) ) {
 	add_action(
