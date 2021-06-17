@@ -63,7 +63,7 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 				true
 			);
 
-			wp_set_script_translations( 'themeisle-gutenberg-css', 'textdomain' );
+			wp_set_script_translations( 'themeisle-gutenberg-css', 'otter-blocks' );
 
 			wp_enqueue_style(
 				'themeisle-gutenberg-css',
@@ -226,7 +226,7 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 		 */
 		public function __clone() {
 			// Cloning instances of the class is forbidden.
-			_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'textdomain' ), '1.0.0' );
+			_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'otter-blocks' ), '1.0.0' );
 		}
 
 		/**
@@ -238,7 +238,7 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 		 */
 		public function __wakeup() {
 			// Unserializing instances of the class is forbidden.
-			_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'textdomain' ), '1.0.0' );
+			_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'otter-blocks' ), '1.0.0' );
 		}
 	}
 }

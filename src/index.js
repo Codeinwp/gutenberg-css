@@ -52,7 +52,7 @@ const withInspectorControls = createHigherOrderComponent( ( BlockEdit ) => {
 					<BlockEdit { ...props } />
 					<InspectorControls>
 						<PanelBody
-							title={ __( 'Custom CSS', 'textdomain' ) }
+							title={ __( 'Custom CSS', 'otter-blocks' ) }
 							initialOpen={ false }
 						>
 							<CSSEditor

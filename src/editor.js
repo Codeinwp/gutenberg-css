@@ -97,19 +97,19 @@ const CSSEditor = ({
 
 	return (
 		<Fragment>
-			<p>{ __( 'Add your custom CSS.', 'textdomain' ) }</p>
+			<p>{ __( 'Add your custom CSS.', 'otter-blocks' ) }</p>
 
 			<div id="themeisle-css-editor" className="themeisle-css-editor"/>
 
-			<p>{ __( 'Use', 'textdomain' ) } <code>selector</code> { __( 'to target block wrapper.', 'textdomain' ) }</p>
+			<p>{ __( 'Use', 'otter-blocks' ) } <code>selector</code> { __( 'to target block wrapper.', 'otter-blocks' ) }</p>
 			<br />
-			<p>{ __( 'Example:', 'textdomain' ) }</p>
+			<p>{ __( 'Example:', 'otter-blocks' ) }</p>
 
 			<pre className="themeisle-css-editor-help">
 				{ 'selector {\n    background: #000;\n}\n\nselector img {\n    border-radius: 100%;\n}'}
 			</pre>
 
-			<p>{ __( 'You can also use other CSS syntax here, such as media queries.', 'textdomain' ) }</p>
+			<p>{ __( 'You can also use other CSS syntax here, such as media queries.', 'otter-blocks' ) }</p>
 		</Fragment>
 	);
 };
