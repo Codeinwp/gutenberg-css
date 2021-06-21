@@ -1,3 +1,7 @@
+##### [Version 1.1.2](https://github.com/Codeinwp/gutenberg-css/compare/v1.1.1...v1.1.2) (2021-06-21)
+
+- Redo with @wp/scripts
+
 ##### [Version 1.1.1](https://github.com/Codeinwp/gutenberg-css/compare/v1.1.0...v1.1.1) (2021-02-09)
 
 - Fix extra class being removed
