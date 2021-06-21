@@ -2,18 +2,14 @@
 /**
  * WordPress dependencies.
  */
-const { __ } = wp.i18n;
+import { flattenDeep } from 'lodash';
 
-const { parse } = wp.blocks;
+import { parse } from '@wordpress/blocks';
 
-const {
+import {
 	select,
 	subscribe
-} = wp.data;
-
-const {
-	flattenDeep
-} = lodash;
+} from '@wordpress/data';
 
 const addStyle = style => {
 	let element = document.getElementById( 'themeisle-css-editor-styles' );
@@ -75,16 +71,11 @@ const getCustomCssFromBlocks = ( blocks, reusableBlocks ) => {
 	// Build the global style
 	const style = extractCustomCss.reduce( ( acc, localStyle ) => acc + localStyle, '' );
 
-	// For debugging
-	// console.log( 'Get all the block', allBlocks );
-	// console.log( 'Extract customCss', extractCustomCss );
-	// console.log( 'Final Result\n', style );
-
 	return style;
 };
 
 const subscribed = subscribe( () => {
-	const { getBlocks } = select( 'core/block-editor' ) || select( 'core/editor' );
+	const { getBlocks } = select( 'core/block-editor' );
 	const blocks = getBlocks();
 	const reusableBlocks = select( 'core' ).getEntityRecords( 'postType', 'wp_block' );
 	const blocksStyle = getCustomCssFromBlocks( blocks, reusableBlocks );

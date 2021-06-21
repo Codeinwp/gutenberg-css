@@ -46,12 +46,6 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 		 * @access  public
 		 */
 		public function enqueue_editor_assets() {
-			if ( THEMEISLE_GUTENBERG_CSS_DEV ) {
-				$version = time();
-			} else {
-				$version = THEMEISLE_GUTENBERG_CSS_VERSION;
-			}
-
 			wp_enqueue_code_editor( array( 'type' => 'text/css' ) );
 
 			wp_add_inline_script( 
@@ -59,21 +53,23 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 				'window.CodeMirror = wp.CodeMirror;'
 			);
 
+			$asset_file = include plugin_dir_path( __FILE__ ) . 'build/index.asset.php';
+
 			wp_enqueue_script(
 				'themeisle-gutenberg-css',
-				plugin_dir_url( $this->get_dir() ) . $this->slug . '/build/build.js',
-				array( 'code-editor', 'csslint', 'wp-i18n', 'wp-blocks', 'wp-components', 'wp-compose', 'wp-data', 'wp-editor', 'wp-element', 'wp-hooks' ),
-				$version,
+				plugin_dir_url( $this->get_dir() ) . $this->slug . '/build/index.js',
+				array_merge( $asset_file['dependencies'], array( 'code-editor', 'csslint' ) ),
+				$asset_file['version'],
 				true
 			);
 
-			wp_set_script_translations( 'themeisle-gutenberg-css', 'textdomain' );
+			wp_set_script_translations( 'themeisle-gutenberg-css', 'otter-blocks' );
 
 			wp_enqueue_style(
 				'themeisle-gutenberg-css',
-				plugin_dir_url( $this->get_dir() ) . $this->slug . '/build/build.css',
+				plugin_dir_url( $this->get_dir() ) . $this->slug . '/build/index.css',
 				array( 'code-editor' ),
-				$version
+				$asset_file['version']
 			);
 		}
 
@@ -230,7 +226,7 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 		 */
 		public function __clone() {
 			// Cloning instances of the class is forbidden.
-			_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'textdomain' ), '1.0.0' );
+			_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'otter-blocks' ), '1.0.0' );
 		}
 
 		/**
@@ -242,7 +238,7 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 		 */
 		public function __wakeup() {
 			// Unserializing instances of the class is forbidden.
-			_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'textdomain' ), '1.0.0' );
+			_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'otter-blocks' ), '1.0.0' );
 		}
 	}
 }

@@ -18,7 +18,7 @@
     <rule ref="PHPCompatibility" />
     <rule ref="WordPress.WP.I18n">
         <properties>
-            <property name="text_domain" value="textdomain" />
+            <property name="text_domain" value="otter-blocks" />
         </properties>
     </rule>
 
@@ -36,5 +36,6 @@
     <exclude-pattern>dist/*</exclude-pattern>
     <exclude-pattern>artifact/*</exclude-pattern>
     <exclude-pattern>assets/*</exclude-pattern>
+    <exclude-pattern>build/*</exclude-pattern>
 
 </ruleset>

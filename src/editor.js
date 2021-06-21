@@ -1,13 +1,13 @@
 /**
  * WordPress dependencies.
  */
-const { __ } = wp.i18n;
+import { __ } from '@wordpress/i18n';
 
-const {
+import {
 	Fragment,
 	useEffect,
 	useRef
-} = wp.element;
+} from '@wordpress/element';
 
 const CSSEditor = ({
 	attributes,
@@ -15,8 +15,6 @@ const CSSEditor = ({
 	clientId
 }) => {
 	useEffect( () => {
-		let classes = getClassName();
-
 		if ( attributes.customCSS ) {
 			const regex = new RegExp( '.' + classArRef.current, 'g' );
 			const generatedCSS = ( attributes.customCSS ).replace( regex, 'selector' );
@@ -99,19 +97,19 @@ const CSSEditor = ({
 
 	return (
 		<Fragment>
-			<p>{ __( 'Add your custom CSS.' ) }</p>
+			<p>{ __( 'Add your custom CSS.', 'otter-blocks' ) }</p>
 
 			<div id="themeisle-css-editor" className="themeisle-css-editor"/>
 
-			<p>{ __( 'Use' ) } <code>selector</code> { __( 'to target block wrapper.' ) }</p>
-			<p>{ __( '' ) }</p>
-			<p>{ __( 'Example:' ) }</p>
+			<p>{ __( 'Use', 'otter-blocks' ) } <code>selector</code> { __( 'to target block wrapper.', 'otter-blocks' ) }</p>
+			<br />
+			<p>{ __( 'Example:', 'otter-blocks' ) }</p>
 
 			<pre className="themeisle-css-editor-help">
 				{ 'selector {\n    background: #000;\n}\n\nselector img {\n    border-radius: 100%;\n}'}
 			</pre>
 
-			<p>{ __( 'You can also use other CSS syntax here, such as media queries.' ) }</p>
+			<p>{ __( 'You can also use other CSS syntax here, such as media queries.', 'otter-blocks' ) }</p>
 		</Fragment>
 	);
 };
