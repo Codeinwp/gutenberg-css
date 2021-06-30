@@ -42,7 +42,8 @@ const getCustomCssFromBlocks = ( blocks, reusableBlocks ) => {
 		if ( 'core/block' === block.name && null !== reusableBlocks ) {
 			const reBlocks = reusableBlocks.find( i => block.attributes.ref === i.id );
 			if ( reBlocks && reBlocks.content ) {
-				childrends.push(  parse(  reBlocks.content.raw || reBlocks.content ).map( ( child ) => [ child, getChildrenFromBlock( child ) ])  );
+				const content = reBlocks.content.hasOwnProperty('raw') ? reBlocks.content.raw : reBlocks.content;
+				childrends.push(  parse( content ).map( ( child ) => [ child, getChildrenFromBlock( child ) ])  );
 			};
 		}
 
