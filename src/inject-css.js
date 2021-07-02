@@ -38,19 +38,20 @@ const getCustomCssFromBlocks = ( blocks, reusableBlocks ) => {
 
 	// Return the children of the block. The result is an array deeply nested that match the structure of the block in the editor.
 	const getChildrenFromBlock = ( block ) => {
-		const childrends = [];
+		const children = [];
 		if ( 'core/block' === block.name && null !== reusableBlocks ) {
 			const reBlocks = reusableBlocks.find( i => block.attributes.ref === i.id );
 			if ( reBlocks && reBlocks.content ) {
-				childrends.push(  parse(  reBlocks.content.raw || reBlocks.content ).map( ( child ) => [ child, getChildrenFromBlock( child ) ])  );
+				const content = reBlocks.content.hasOwnProperty('raw') ? reBlocks.content.raw : reBlocks.content;
+				children.push(  parse( content ).map( ( child ) => [ child, getChildrenFromBlock( child ) ])  );
 			};
 		}
 
 		if ( undefined !== block.innerBlocks && 0 < ( block.innerBlocks ).length ) {
-			childrends.push( block.innerBlocks.map( ( child ) => [ child, getChildrenFromBlock( child ) ]) );
+			children.push( block.innerBlocks.map( ( child ) => [ child, getChildrenFromBlock( child ) ]) );
 		}
 
-		return childrends;
+		return children;
 	};
 
 	// Get all the blocks and their children
