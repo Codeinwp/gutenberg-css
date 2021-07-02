@@ -1,3 +1,7 @@
+##### [Version 1.1.3](https://github.com/Codeinwp/gutenberg-css/compare/v1.1.2...v1.1.3) (2021-07-02)
+
+- Fix empty reusable blocks breaking editor
+
 ##### [Version 1.1.2](https://github.com/Codeinwp/gutenberg-css/compare/v1.1.1...v1.1.2) (2021-06-21)
 
 - Redo with @wp/scripts
