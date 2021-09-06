@@ -34,9 +34,10 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 		 * Initialize the class
 		 */
 		public function init() {
-			add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_editor_assets' ) );
+			add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_editor_assets' ), 1 );
 			add_action( 'wp_head', array( $this, 'render_server_side_css' ) );
 			add_action( 'wp_loaded', array( $this, 'add_attributes_to_blocks' ) );
+			add_filter( 'themeisle_gutenberg_blocks_css', array( $this, 'add_css_to_otter' ), 10, 1  );
 		}
 
 		/**
@@ -109,7 +110,7 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 					return;
 				}
 
-				$css = $this->cycle_through_blocks( $blocks );
+				$css = $this->cycle_through_blocks( $blocks, $post->ID );
 
 				if ( empty( $css ) ) {
 					return;
@@ -130,10 +131,13 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 		 * @since   1.0.0
 		 * @access  public
 		 */
-		public function cycle_through_blocks( $inner_blocks ) {
+		public function cycle_through_blocks( $inner_blocks, $id ) {
 			$style = '';
 			foreach ( $inner_blocks as $block ) {
-				if ( isset( $block['attrs'] ) ) {
+				$file_name  = get_post_meta( $id, '_themeisle_gutenberg_block_stylesheet', true );
+				$render_css = empty( $file_name ) || strpos( $file_name, 'post-v2' ) === false;
+
+				if ( $render_css && isset( $block['attrs'] ) ) {
 					if ( isset( $block['attrs']['hasCustomCSS'] ) && isset( $block['attrs']['customCSS'] ) ) {
 						$style .= $block['attrs']['customCSS'];
 					}
@@ -152,11 +156,11 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 
 					$blocks = $this->parse_blocks( $reusable_block->post_content );
 
-					$style .= $this->cycle_through_blocks( $blocks );
+					$style .= $this->cycle_through_blocks( $blocks, $reusable_block->ID );
 				}
 
 				if ( isset( $block['innerBlocks'] ) && ! empty( $block['innerBlocks'] ) && is_array( $block['innerBlocks'] ) ) {
-					$style .= $this->cycle_through_blocks( $block['innerBlocks'] );
+					$style .= $this->cycle_through_blocks( $block['innerBlocks'], $id );
 				}
 			}
 			return $style;
@@ -183,6 +187,23 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 					'default' => '',
 				);
 			}
+		}
+
+		/**
+		 * Append Block CSS to Otter's CSS file..
+		 *
+		 * @since   1.1.4
+		 * @access  public
+		 */
+		public function add_css_to_otter( $block ) {
+			$style = '';
+			if ( isset( $block['attrs'] ) ) {
+				if ( isset( $block['attrs']['hasCustomCSS'] ) && isset( $block['attrs']['customCSS'] ) ) {
+					$style .= $block['attrs']['customCSS'];
+				}
+			}
+
+			return $style;
 		}
 
 		/**
