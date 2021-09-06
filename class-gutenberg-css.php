@@ -37,7 +37,7 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 			add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_editor_assets' ), 1 );
 			add_action( 'wp_head', array( $this, 'render_server_side_css' ) );
 			add_action( 'wp_loaded', array( $this, 'add_attributes_to_blocks' ) );
-			add_filter( 'themeisle_gutenberg_blocks_css', array( $this, 'add_css_to_otter' ), 10, 1  );
+			add_filter( 'themeisle_gutenberg_blocks_css', array( $this, 'add_css_to_otter' ), 10, 1 );
 		}
 
 		/**
@@ -128,6 +128,8 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 		 * Cycle thorugh Blocks
 		 *
 		 * @param array $inner_blocks Array of blocks.
+		 * @param int   $id Post ID.
+		 * 
 		 * @since   1.0.0
 		 * @access  public
 		 */
@@ -191,6 +193,8 @@ if ( ! class_exists( '\ThemeIsle\GutenbergCSS' ) ) {
 
 		/**
 		 * Append Block CSS to Otter's CSS file..
+		 *
+		 * @param int $block Block.
 		 *
 		 * @since   1.1.4
 		 * @access  public
