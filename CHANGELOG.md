@@ -1,3 +1,7 @@
+##### [Version 1.1.4](https://github.com/Codeinwp/gutenberg-css/compare/v1.1.3...v1.1.4) (2021-10-10)
+
+- Improve CSS saving when using with Otter Blocks
+
 ##### [Version 1.1.3](https://github.com/Codeinwp/gutenberg-css/compare/v1.1.2...v1.1.3) (2021-07-02)
 
 - Fix empty reusable blocks breaking editor

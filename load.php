@@ -8,7 +8,7 @@
  * @since       1.0.0
  */
 
-define( 'THEMEISLE_GUTENBERG_CSS_VERSION', '1.1.3' );
+define( 'THEMEISLE_GUTENBERG_CSS_VERSION', '1.1.4' );
 
 if ( function_exists( 'add_action' ) ) {
 	add_action(
