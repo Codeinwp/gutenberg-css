@@ -16,6 +16,15 @@ const CSSEditor = ({
 }) => {
 	useEffect( () => {
 		if ( attributes.customCSS ) {
+			if ( attributes.className ) {
+				const classes = attributes.className;
+
+				if ( classes.includes( 'ticss-' ) ) {
+					classArRef.current = classes.split( ' ' );
+					classArRef.current = classArRef.current.find( i => i.includes( 'ticss' ) );
+				}
+			}
+
 			const regex = new RegExp( '.' + classArRef.current, 'g' );
 			const generatedCSS = ( attributes.customCSS ).replace( regex, 'selector' );
 			customCSSRef.current = generatedCSS;
